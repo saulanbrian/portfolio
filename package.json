@@ -9,6 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.80.0",
+    "@supabase/supabase-js": "^2.109.0",
+    "@tanstack/react-query": "^5.102.8",
+    "file-type": "^21.3.4",
+    "motion": "^13.2.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"

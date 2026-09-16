@@ -1,26 +1,226 @@
 @import "tailwindcss";
 
+/* ─── Class-based dark mode toggle ─── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Primitives: raw palette ─── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand: deep indigo */
+  --brand-50: oklch(0.97 0.02 265);
+  --brand-100: oklch(0.93 0.05 265);
+  --brand-200: oklch(0.87 0.10 265);
+  --brand-300: oklch(0.78 0.15 265);
+  --brand-400: oklch(0.68 0.19 265);
+  --brand-500: oklch(0.55 0.22 265);
+  --brand-600: oklch(0.48 0.24 270);
+  --brand-700: oklch(0.40 0.22 270);
+  --brand-800: oklch(0.32 0.18 270);
+  --brand-900: oklch(0.24 0.14 270);
+
+  /* Neutral: warm stone */
+  --neutral-50: oklch(0.98 0.005 80);
+  --neutral-100: oklch(0.96 0.005 80);
+  --neutral-200: oklch(0.92 0.008 80);
+  --neutral-300: oklch(0.85 0.008 80);
+  --neutral-400: oklch(0.70 0.01 80);
+  --neutral-500: oklch(0.55 0.01 80);
+  --neutral-600: oklch(0.45 0.01 80);
+  --neutral-700: oklch(0.37 0.012 80);
+  --neutral-800: oklch(0.28 0.012 80);
+  --neutral-900: oklch(0.20 0.012 80);
+  --neutral-950: oklch(0.14 0.01 80);
+
+  /* Accent: cyan highlight */
+  --accent-400: oklch(0.78 0.12 195);
+  --accent-500: oklch(0.70 0.15 195);
 }
 
+/* ─── Semantic: light mode roles ─── */
+:root {
+  color-scheme: light;
+
+  --bg: var(--neutral-50);
+  --bg-alt: var(--neutral-100);
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+
+  --fg: var(--neutral-950);
+  --fg-muted: var(--neutral-500);
+  --fg-subtle: var(--neutral-400);
+
+  --primary: var(--brand-500);
+  --primary-fg: #ffffff;
+
+  --accent: var(--accent-500);
+
+  --border: var(--neutral-200);
+  --border-subtle: var(--neutral-100);
+  --ring: var(--brand-400);
+}
+
+/* ─── Semantic: dark mode roles ─── */
+.dark {
+  color-scheme: dark;
+
+  --bg: var(--neutral-950);
+  --bg-alt: var(--neutral-900);
+  --bg-surface: oklch(0.18 0.012 80);
+  --bg-elevated: oklch(0.22 0.012 80);
+
+  --fg: var(--neutral-50);
+  --fg-muted: var(--neutral-400);
+  --fg-subtle: var(--neutral-500);
+
+  --primary: var(--brand-400);
+  --primary-fg: var(--neutral-950);
+
+  --accent: var(--accent-400);
+
+  --border: var(--neutral-800);
+  --border-subtle: var(--neutral-900);
+  --ring: var(--brand-300);
+}
+
+/* ─── Tailwind utility mapping ─── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Semantic colors */
+  --color-background: var(--bg);
+  --color-background-alt: var(--bg-alt);
+  --color-background-surface: var(--bg-surface);
+  --color-background-elevated: var(--bg-elevated);
+  --color-foreground: var(--fg);
+  --color-foreground-muted: var(--fg-muted);
+  --color-foreground-subtle: var(--fg-subtle);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-ring: var(--ring);
+
+  /* Brand scale (for direct use) */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Animation durations */
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 300ms;
+  --animate-duration-slow: 500ms;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ─── Base styles ─── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+
+/* ─── View Transitions: cinematic base ─── */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Directional: forward (slide from right) */
+::view-transition-old(.nav-forward) {
+  animation: 200ms ease-in both fade reverse,
+             300ms ease-in-out both slide-x reverse;
+}
+::view-transition-new(.nav-forward) {
+  animation: 250ms ease-out 200ms both fade,
+             400ms ease-in-out both slide-x;
+}
+
+/* Directional: back (slide from left) */
+::view-transition-old(.nav-back) {
+  animation: 200ms ease-in both fade reverse,
+             300ms ease-in-out both slide-x reverse;
+}
+::view-transition-new(.nav-back) {
+  animation: 250ms ease-out 200ms both fade,
+             400ms ease-in-out both slide-x;
+  --slide-offset: -60px;
+}
+
+/* Section entrance */
+::view-transition-old(.slide-up) {
+  animation: 200ms ease-in both fade reverse,
+             300ms ease-in both slide-y reverse;
+}
+::view-transition-new(.slide-up) {
+  animation: 300ms ease-out 150ms both fade,
+             500ms ease-out both slide-y;
+}
+
+/* Shared element morph */
+::view-transition-old(.morph) {
+  animation: 250ms cubic-bezier(0.4, 0, 0.2, 1) both fade reverse;
+}
+::view-transition-new(.morph) {
+  animation: 350ms cubic-bezier(0, 0, 0.2, 1) 100ms both fade;
+}
+
+/* Keyframes */
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-x {
+  from { translate: var(--slide-offset, 60px) 0; }
+  to { translate: 0 0; }
+}
+
+@keyframes slide-y {
+  from { translate: 0 var(--slide-offset, 20px); }
+  to { translate: 0 0; }
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

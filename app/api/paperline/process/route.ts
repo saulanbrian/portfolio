@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/lib/shared/rate-limit";
 import { validateFile } from "@/lib/shared/file-validation";
+import { isFeatureEnabled, FLAGS } from "@/lib/configcat";
+import { paperlineConfig } from "@/lib/paperline/config";
 
 const PAPERLINE_API_URL = process.env.NEXT_PUBLIC_PAPERLINE_API_URL!;
-const ALLOWED_TYPES = new Set([
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-]);
-const MAX_SIZE_MB = 10;
+const ALLOWED_TYPES = new Set(paperlineConfig.upload.acceptedTypes);
+const MAX_SIZE_MB = paperlineConfig.upload.maxSizeMB;
 
 export async function POST(request: NextRequest) {
+  if (!(await isFeatureEnabled(FLAGS.PAPERLINE_ENABLED))) {
+    return NextResponse.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503, headers: { "Retry-After": "60" } }
+    );
+  }
+
   // Rate limit: 5 requests per minute per IP
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0] ?? "127.0.0.1";

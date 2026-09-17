@@ -1,6 +1,6 @@
 import type { AppHeroConfig } from "@/components/ui/app-hero";
 
-export const config = {
+export const paperlineConfig = {
   slug: "paperline",
   name: "PaperLine",
   description: "Upload an invoice — AI extracts vendor, line items, totals, and currency.",
@@ -30,3 +30,5 @@ export const config = {
     downloadUrl: "https://github.com/saulanbrian/paperline/releases",
   } satisfies AppHeroConfig,
 };
+
+export type PaperlineConfig = typeof paperlineConfig;

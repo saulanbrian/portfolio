@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Fullstack Mobile Developer",
+  title: "Brian Saulan | Fullstack Mobile Developer",
   description:
     "Fullstack mobile developer specializing in PDF and image processing applications. Try interactive demos in-browser.",
 };

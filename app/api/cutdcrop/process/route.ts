@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/lib/shared/rate-limit";
 import { validateFile, sanitizeFilename } from "@/lib/shared/file-validation";
+import { isFeatureEnabled, FLAGS } from "@/lib/configcat";
+import { cutdcropConfig } from "@/lib/cutdcrop/config";
 
-const ALLOWED_TYPES = new Set(["application/pdf"]);
-const MAX_SIZE_MB = 10;
+const ALLOWED_TYPES = new Set(cutdcropConfig.upload.acceptedTypes);
+const MAX_SIZE_MB = cutdcropConfig.upload.maxSizeMB;
 
 export async function POST(request: NextRequest) {
+  if (!(await isFeatureEnabled(FLAGS.CUTDCROP_ENABLED))) {
+    return NextResponse.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503, headers: { "Retry-After": "60" } }
+    );
+  }
+
   // Rate limit: 5 requests per minute per IP
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0] ?? "127.0.0.1";

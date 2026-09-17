@@ -11,16 +11,10 @@ export function Header() {
           <span className="text-primary">brian</span>.saulan
         </Link>
         <nav className="hidden items-center gap-8 text-sm font-medium text-foreground-muted sm:flex">
-          <a
-            href="#about"
-            className="transition-colors hover:text-foreground"
-          >
+          <a href="#about" className="transition-colors hover:text-foreground">
             About
           </a>
-          <a
-            href="#apps"
-            className="transition-colors hover:text-foreground"
-          >
+          <a href="#apps" className="transition-colors hover:text-foreground">
             Apps
           </a>
           <a

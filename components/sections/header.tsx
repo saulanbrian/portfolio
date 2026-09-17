@@ -8,7 +8,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="text-lg font-bold tracking-tight">
-          <span className="text-primary">dev</span>.portfolio
+          <span className="text-primary">brian</span>.saulan
         </Link>
         <nav className="hidden items-center gap-8 text-sm font-medium text-foreground-muted sm:flex">
           <a

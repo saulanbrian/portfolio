@@ -2,10 +2,10 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background-alt">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 text-sm text-foreground-muted">
-        <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Brian Saulan. All rights reserved.</p>
         <div className="flex gap-4">
           <a
-            href="https://github.com"
+            href="https://github.com/saulanbrian"
             className="transition-colors hover:text-foreground"
             target="_blank"
             rel="noopener noreferrer"
@@ -13,7 +13,7 @@ export function Footer() {
             GitHub
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/brian-saulan"
             className="transition-colors hover:text-foreground"
             target="_blank"
             rel="noopener noreferrer"

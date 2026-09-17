@@ -45,6 +45,109 @@ function validateFile(
   return null;
 }
 
+function ValidationError({
+  error,
+  onDismiss,
+}: {
+  error: string;
+  onDismiss: () => void;
+}) {
+  return (
+    <div className="mb-4 w-full max-w-md">
+      <div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+        <span className="flex-1">{error}</span>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDismiss();
+          }}
+          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-200"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function FileIdleState({ description }: { description: string }) {
+  return (
+    <>
+      <div className="mb-4 text-4xl">📁</div>
+      <p className="text-sm font-medium text-foreground">
+        Drop a file here or click to browse
+      </p>
+      <p className="mt-1 text-xs text-foreground-subtle">{description}</p>
+    </>
+  );
+}
+
+function FileSelectedState({
+  file,
+  previewUrl,
+  actionButton,
+  onClear,
+}: {
+  file: File;
+  previewUrl: string | null;
+  actionButton?: ReactNode;
+  onClear: (e: React.MouseEvent) => void;
+}) {
+  return (
+    <>
+      {previewUrl ? (
+        <div className="mb-4 overflow-hidden rounded-lg border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={previewUrl}
+            alt={file.name}
+            className="max-h-[200px] object-contain"
+          />
+        </div>
+      ) : (
+        <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-primary/10 text-3xl">
+          📄
+        </div>
+      )}
+
+      <p className="text-sm font-medium text-foreground">{file.name}</p>
+      <p className="mt-0.5 text-xs text-foreground-subtle">
+        {formatFileSize(file.size)}
+      </p>
+
+      {actionButton && <div className="mt-4">{actionButton}</div>}
+
+      <button
+        onClick={onClear}
+        className="mt-3 text-xs text-foreground-subtle transition-colors hover:text-primary"
+      >
+        Choose a different file
+      </button>
+    </>
+  );
+}
+
+function FileError({
+  error,
+  onRetry,
+}: {
+  error: string;
+  onRetry: (e: React.MouseEvent) => void;
+}) {
+  return (
+    <>
+      <div className="mb-4 text-4xl">❌</div>
+      <p className="text-sm font-medium text-red-500">{error}</p>
+      <button
+        onClick={onRetry}
+        className="mt-2 text-xs text-foreground-subtle transition-colors hover:text-primary"
+      >
+        Try another file
+      </button>
+    </>
+  );
+}
+
 export function FileUpload({
   acceptedTypes,
   accept,
@@ -67,6 +170,7 @@ export function FileUpload({
   }, [selectedFile]);
 
   const prevPreviewUrl = useRef<string | null>(null);
+
   useEffect(() => {
     if (prevPreviewUrl.current && prevPreviewUrl.current !== previewUrl) {
       URL.revokeObjectURL(prevPreviewUrl.current);
@@ -82,7 +186,6 @@ export function FileUpload({
       const validation = validateFile(file, acceptedTypes, accept, maxSizeMB);
       if (validation) {
         setValidationError(validation);
-        setTimeout(() => setValidationError(null), 3000);
         return;
       }
       setValidationError(null);
@@ -139,80 +242,25 @@ export function FileUpload({
       />
 
       {validationError && (
-        <div className="mb-4 w-full max-w-md">
-          <div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
-            <span className="flex-1">{validationError}</span>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setValidationError(null);
-              }}
-              className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-200"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
+        <ValidationError
+          error={validationError}
+          onDismiss={() => setValidationError(null)}
+        />
       )}
 
-      {error && (
-        <>
-          <div className="mb-4 text-4xl">❌</div>
-          <p className="text-sm font-medium text-red-500">{error}</p>
-          <button
-            onClick={handleClear}
-            className="mt-2 text-xs text-foreground-subtle transition-colors hover:text-primary"
-          >
-            Try another file
-          </button>
-        </>
-      )}
+      {error && <FileError error={error} onRetry={handleClear} />}
 
       {showIdle && (
-        <>
-          <div className="mb-4 text-4xl">📁</div>
-          <p className="text-sm font-medium text-foreground">
-            Drop a file here or click to browse
-          </p>
-          <p className="mt-1 text-xs text-foreground-subtle">
-            {description ?? `Max ${sizeLabel}`}
-          </p>
-        </>
+        <FileIdleState description={description ?? `Max ${sizeLabel}`} />
       )}
 
       {selectedFile && !error && (
-        <>
-          {previewUrl ? (
-            <div className="mb-4 overflow-hidden rounded-lg border border-border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={previewUrl}
-                alt={selectedFile.name}
-                className="max-h-[200px] object-contain"
-              />
-            </div>
-          ) : (
-            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-primary/10 text-3xl">
-              📄
-            </div>
-          )}
-
-          <p className="text-sm font-medium text-foreground">
-            {selectedFile.name}
-          </p>
-          <p className="mt-0.5 text-xs text-foreground-subtle">
-            {formatFileSize(selectedFile.size)}
-          </p>
-
-          {actionButton && <div className="mt-4">{actionButton}</div>}
-
-          <button
-            onClick={handleClear}
-            className="mt-3 text-xs text-foreground-subtle transition-colors hover:text-primary"
-          >
-            Choose a different file
-          </button>
-        </>
+        <FileSelectedState
+          file={selectedFile}
+          previewUrl={previewUrl}
+          actionButton={actionButton}
+          onClear={handleClear}
+        />
       )}
     </div>
   );

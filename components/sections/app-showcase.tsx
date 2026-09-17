@@ -26,7 +26,14 @@ export function AppShowcase() {
             <StaggerItem key={app.slug}>
               <Link href={`/apps/${app.slug}`} className="group block">
                 <div className="rounded-xl border border-border bg-background-surface p-8 transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
-                  <div className="mb-4 text-4xl">{app.icon}</div>
+                  <div className="mb-4 h-16 w-16 overflow-hidden rounded-lg border border-border">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={app.logo}
+                      alt={`${app.name} logo`}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
                   <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                     {app.name}
                   </h3>

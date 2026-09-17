@@ -23,13 +23,13 @@ export function Contact() {
         <SlideUp delay={0.1}>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:hello@example.com"
+              href="mailto:briansaulan05@gmail.com"
               className="inline-flex h-12 items-center rounded-pill bg-primary px-8 text-sm font-medium text-primary-foreground transition-all hover:scale-105 hover:shadow-lg"
             >
               Say Hello
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/saulanbrian"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center rounded-pill border border-border px-8 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:text-primary"
@@ -37,7 +37,7 @@ export function Contact() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/brian-saulan"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center rounded-pill border border-border px-8 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:text-primary"

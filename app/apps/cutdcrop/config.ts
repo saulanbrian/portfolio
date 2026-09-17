@@ -18,5 +18,6 @@ export const config = {
       "Crop margins",
       "Extract selected pages",
     ],
+    downloadUrl: "https://github.com/saulanbrian/cutdcrop/releases",
   } satisfies AppHeroConfig,
 };

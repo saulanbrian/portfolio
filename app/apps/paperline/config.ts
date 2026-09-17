@@ -27,5 +27,6 @@ export const config = {
       "Totals & currency detection",
       "Real-time processing",
     ],
+    downloadUrl: "https://github.com/saulanbrian/paperline/releases",
   } satisfies AppHeroConfig,
 };

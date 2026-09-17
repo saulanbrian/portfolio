@@ -6,6 +6,7 @@ export interface AppHeroConfig {
   name: string;
   description: string;
   features: string[];
+  downloadUrl?: string;
 }
 
 export function AppHero({ config }: { config: AppHeroConfig }) {
@@ -13,13 +14,15 @@ export function AppHero({ config }: { config: AppHeroConfig }) {
     <div className="flex flex-col md:w-[30%] md:shrink-0">
       {/* Logo + Title inline */}
       <div className="flex items-center gap-3">
-        <Image
-          src={config.logo}
-          alt={config.logoAlt}
-          width={64}
-          height={64}
-          className="rounded-xl"
-        />
+        <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-border">
+          <Image
+            src={config.logo}
+            alt={config.logoAlt}
+            width={64}
+            height={64}
+            className="h-full w-full object-contain"
+          />
+        </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           {config.name}
         </h1>
@@ -37,6 +40,18 @@ export function AppHero({ config }: { config: AppHeroConfig }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {/* Download button */}
+      {config.downloadUrl && (
+        <a
+          href={config.downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex h-12 items-center justify-center rounded-pill border border-border px-8 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:text-primary"
+        >
+          Download
+        </a>
       )}
     </div>
   );

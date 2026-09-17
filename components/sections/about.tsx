@@ -3,10 +3,10 @@
 import { SlideUp, StaggerChildren, StaggerItem } from "@/components/ui/animated";
 
 const skills = [
-  { category: "Mobile", items: ["React Native", "Expo", "iOS", "Android"] },
-  { category: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
-  { category: "Tools", items: ["TypeScript", "Docker", "CI/CD", "AWS"] },
-  { category: "Specialties", items: ["PDF Processing", "Image Processing", "File Handling", "Offline-First"] },
+  { category: "Frontend", items: ["React Native", "React", "Expo", "Next.js"] },
+  { category: "Backend", items: ["Django", "FastAPI", "Python", "Celery", "ARQ", "Redis"] },
+  { category: "Database", items: ["Supabase", "PostgreSQL"] },
+  { category: "AI", items: ["LLM integration (OpenAI SDK, provider-agnostic)", "AI document processing (OCR + extraction)", "Agentic coding workflows (Claude Code, Cursor)"] },
 ];
 
 export function About() {
@@ -18,24 +18,27 @@ export function About() {
             About
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Building mobile experiences that{" "}
-            <span className="text-primary">matter</span>
+            Building practical tools that{" "}
+            <span className="text-primary">actually work</span>
           </h2>
         </SlideUp>
 
         <SlideUp delay={0.1}>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-foreground-muted">
-            I specialize in fullstack mobile development with a focus on
-            real-world file processing. My apps handle PDFs and images —
-            tasks that usually require desktop software — and make them
-            effortless on mobile.
+            I&apos;m Brian, a self-taught full-stack mobile developer from Philippines, building without a computer science background.
+          </p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-muted">
+            I build practical, AI-integrated tools. Apps that read messy documents, summarize information, and cut manual work down to seconds. I work primarily with React Native, Supabase, and Django, and every project here comes with a live demo you can try directly in your browser, no install required.
+          </p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-muted">
+            Open to freelance projects and part-time or contract roles. If you need someone who ships, not just talks about shipping, this is a good place to start.
           </p>
         </SlideUp>
 
         <StaggerChildren className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {skills.map((group) => (
-            <StaggerItem key={group.category}>
-              <div className="rounded-xl border border-border bg-background-surface p-6 transition-all hover:border-primary/30 hover:shadow-md">
+            <StaggerItem key={group.category} className="h-full">
+              <div className="h-full rounded-xl border border-border bg-background-surface p-6 transition-all hover:border-primary/30 hover:shadow-md">
                 <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
                   {group.category}
                 </h3>

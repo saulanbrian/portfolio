@@ -12,42 +12,58 @@ export function Hero() {
       </div>
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-24">
-        <SlideUp>
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">
-            Fullstack Mobile Developer
-          </p>
-        </SlideUp>
+        <div className="flex flex-col-reverse items-center gap-12 lg:flex-row lg:items-center">
+          {/* Text content */}
+          <div className="flex-1 text-center lg:text-left">
+            <SlideUp>
+              <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">
+                Full-Stack Mobile Developer
+              </p>
+            </SlideUp>
 
-        <SlideUp delay={0.1}>
-          <h1 className="max-w-3xl text-5xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-7xl">
-            I build apps you can{" "}
-            <span className="text-primary">try right here</span>
-          </h1>
-        </SlideUp>
+            <SlideUp delay={0.1}>
+              <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+                Skip the download.{" "}
+                <span className="text-primary">Try the real thing.</span>
+              </h1>
+            </SlideUp>
 
-        <SlideUp delay={0.2}>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground-muted">
-            No downloads. No sign-ups. Upload a file, see the magic.
-            Interactive demos of my mobile apps — running live in your browser.
-          </p>
-        </SlideUp>
+            <SlideUp delay={0.2}>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground-muted">
+                I build mobile apps. You can try them right here — no download required.
+              </p>
+            </SlideUp>
 
-        <SlideUp delay={0.3}>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#apps"
-              className="inline-flex h-12 items-center rounded-pill bg-primary px-8 text-sm font-medium text-primary-foreground transition-all hover:scale-105 hover:shadow-lg"
-            >
-              Try My Apps
-            </a>
-            <a
-              href="#about"
-              className="inline-flex h-12 items-center rounded-pill border border-border px-8 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:text-primary"
-            >
-              Learn More
-            </a>
+            <SlideUp delay={0.3}>
+              <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
+                <a
+                  href="#apps"
+                  className="inline-flex h-12 items-center rounded-pill bg-primary px-8 text-sm font-medium text-primary-foreground transition-all hover:scale-105 hover:shadow-lg"
+                >
+                  Try My Apps
+                </a>
+                <a
+                  href="#about"
+                  className="inline-flex h-12 items-center rounded-pill border border-border px-8 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:text-primary"
+                >
+                  Learn More
+                </a>
+              </div>
+            </SlideUp>
           </div>
-        </SlideUp>
+
+          {/* Profile photo */}
+          <SlideUp delay={0.2}>
+            <div className="shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/profile.jpg"
+                alt="Brian Saulan"
+                className="h-24 w-24 rounded-full object-cover ring-4 ring-primary/20 lg:h-64 lg:w-64"
+              />
+            </div>
+          </SlideUp>
+        </div>
       </div>
     </section>
   );

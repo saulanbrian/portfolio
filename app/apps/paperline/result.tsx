@@ -109,23 +109,25 @@ function ResultLineItems({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-xs text-foreground-subtle">
-              <th className="pb-2 font-medium">Description</th>
-              <th className="pb-2 text-right font-medium">Qty</th>
-              <th className="pb-2 text-right font-medium">Price</th>
-              <th className="pb-2 text-right font-medium">Total</th>
+              <th className="pb-2 px-3 font-medium">Description</th>
+              <th className="pb-2 px-3 text-right font-medium">Qty</th>
+              <th className="pb-2 px-3 text-right font-medium">Price</th>
+              <th className="pb-2 px-3 text-right font-medium">Total</th>
             </tr>
           </thead>
           <tbody>
             {lineItems.map((item) => (
               <tr key={item.id} className="border-b border-border-subtle">
-                <td className="py-2.5 text-foreground">{item.description}</td>
-                <td className="py-2.5 text-right text-foreground-muted">
+                <td className="max-w-[150px] truncate py-2.5 px-3 text-foreground" title={item.description}>
+                  {item.description}
+                </td>
+                <td className="py-2.5 px-3 text-right text-foreground-muted">
                   {item.quantity}
                 </td>
-                <td className="py-2.5 text-right text-foreground-muted">
+                <td className="py-2.5 px-3 text-right text-foreground-muted">
                   {formatCurrency(item.unit_price, currency)}
                 </td>
-                <td className="py-2.5 text-right font-medium text-foreground">
+                <td className="py-2.5 px-3 text-right font-medium text-foreground">
                   {formatCurrency(item.total_price, currency)}
                 </td>
               </tr>
@@ -200,7 +202,17 @@ export function Result({ documentId, onNewDocument }: ResultProps) {
 
   return (
     <div className="space-y-6">
-      <ResultHeader fileName={document.file_name} />
+      <div className="flex items-center justify-between">
+        <ResultHeader fileName={document.file_name} />
+        {onNewDocument && (
+          <button
+            onClick={onNewDocument}
+            className="text-sm font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            Process another document
+          </button>
+        )}
+      </div>
 
       <div className="flex flex-col gap-6 lg:flex-row">
         <div className="lg:w-[45%] lg:shrink-0">
@@ -212,15 +224,6 @@ export function Result({ documentId, onNewDocument }: ResultProps) {
           <ResultLineItems document={document} lineItems={lineItems} />
         </div>
       </div>
-
-      {onNewDocument && (
-        <button
-          onClick={onNewDocument}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-pill bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:scale-105 hover:shadow-lg"
-        >
-          Process another document
-        </button>
-      )}
     </div>
   );
 }
